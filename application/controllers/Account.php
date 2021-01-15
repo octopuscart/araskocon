@@ -21,11 +21,11 @@ class Account extends CI_Controller {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-        $model_no = $this->post('model_no');
-        $device_id = $this->post('device_id');
-        $brand = $this->post('brand');
-        $name = $this->post('name');
-        $contact_no = $this->post('contact_no');
+        $model_no = $this->input->post('model_no');
+        $device_id = $this->input->post('device_id');
+        $brand = $this->input->post('brand');
+        $name = $this->input->post('name');
+        $contact_no = $this->input->post('contact_no');
 
         $insertArray = array(
             "model_no" => $model_no,
@@ -37,6 +37,8 @@ class Account extends CI_Controller {
             'time' => date('H:i:s'),
         );
         $this->db->insert("get_conects", $insertArray);
+
+        echo json_encode($insertArray);
     }
 
 }
