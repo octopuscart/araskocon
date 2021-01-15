@@ -155,21 +155,33 @@ class Api extends REST_Controller {
         $brand = $this->post('brand');
         $name = $this->post('name');
         $contact_no = $this->post('contact_no');
-   
-        $insertArray = array(
-            "model_no" => $model_no,
-            "device_id" => $device_id,
-            "brand" => $brand,
-            "name" => $name,
-            "contact_no"=>$contact_no,
-            'date' => date('Y-m-d'),
-            'time' => date('H:i:s'),
-        );
-        $this->db->insert("get_conects", $insertArray);
+
+        $this->db->where("device_id", $device_id);
+        $this->db->where("contact_no", $contact_no);
+        $query = $this->db->get('get_conects');
+        $checkcontact = $query->row();
+
+        if ($checkcontact) {
+            $this->response($checkcontact->id);
+        } else {
+
+
+            $insertArray = array(
+                "model_no" => $model_no,
+                "device_id" => $device_id,
+                "brand" => $brand,
+                "name" => $name,
+                "contact_no" => $contact_no,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s'),
+            );
+            $this->db->insert("get_conects", $insertArray);
+            $last_id = $this->db->insert_id();
+            $this->response($last_id);
+        }
     }
-    
-    
-    function test_get(){
+
+    function test_get() {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
