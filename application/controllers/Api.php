@@ -168,6 +168,7 @@ class Api extends REST_Controller {
         $this->db->insert("get_conects", $insertArray);
     }
     
+    
     function test_get(){
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');

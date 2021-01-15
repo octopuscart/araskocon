@@ -5,7 +5,7 @@
         <script>
        
                 function postContact() {
-                    $.post("http://192.168.1.3/araskocon/index.php/Api/crateContact",
+                    $.post("https://test.varbin.com/Api/crateContact",
                             {
                                 "model_no": "",
                                 "device_id": "",
