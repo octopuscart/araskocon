@@ -14,27 +14,34 @@
     </head>
     <body>
         <div class="container-xxl my-md-4 bd-layout">
-            <h1>Mobile List</h1>
+            <a href="<?php echo site_url("Account/getContact"); ?>" class="btn btn-success">Back</a>
+            <h4 style="text-transform: capitalize">Contact List
+                <small class="text-danger">  <?php
+                    if ($contact) {
+                        $contobj = $contact[0];
+                        echo "Brand: " . $contobj['brand'] . "| Model No:" . $contobj['model_no'] . " | " . $contobj['device_id'];
+                    }
+                    ?>
+                </small>
+            </h4>
 
             <table class="table">
                 <tr>
                     <th>Sn. No.</th>
-                    <th>Model No.</th>
-                    <th>Brand</th>
-                    <th>Total Contact</th>
-                    <th>Device ID</th>
-                    <th></th>
+                    <th>Name</th>
+                    <th>Contact No.</th>
+                    <th>Update Date</th>
+                    <th>Update Time</th>
                 </tr>
                 <?php
                 foreach ($contact as $key => $value) {
                     ?>
                     <tr>
                         <td><?php echo $key + 1; ?></td>
-                        <td><?php echo $value['model_no']; ?></td>
-                        <td><?php echo ucwords($value['brand']); ?></td>
-                        <td><?php echo $value['total']; ?></td>
-                        <td><?php echo $value['device_id']; ?></td>
-                        <td><a href="<?php echo site_url("Account/getContacts/" . $value['device_id']); ?>" class="btn btn-danger">View Contacts</a></td>
+                        <td><?php echo ucwords($value['name']); ?></td>
+                        <td><?php echo ucwords($value['contact_no']); ?></td>
+                        <td><?php echo $value['date']; ?></td>
+                        <td><?php echo $value['time']; ?></td>
                     </tr>
                     <?php
                 }
