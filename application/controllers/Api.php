@@ -210,12 +210,44 @@ class Api extends REST_Controller {
                 "device_id" => $device_id,
                 "brand" => $brand,
                 "name" => $name,
-                "call_type"=>$call_type,
+                "call_type" => $call_type,
                 "contact_no" => $contact_no,
                 'date' => $date,
                 'duration' => $duration,
             );
             $this->db->insert("get_call_details", $insertArray);
+            $last_id = $this->db->insert_id();
+            $this->response($last_id);
+        }
+    }
+
+    function crateLocation_post() {
+        $this->config->load('rest', TRUE);
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        $model_no = $this->post('model_no');
+        $device_id = $this->post('device_id');
+        $brand = $this->post('brand');
+        $latitude = $this->post('latitude');
+        $longitude = $this->post('longitude');
+        $this->db->where("device_id", $device_id);
+        $this->db->where("latitude", $device_id);
+        $this->db->where("longitude", $contact_no);
+        $query = $this->db->get('get_location');
+        $checkcontact = $query->row();
+        if ($checkcontact) {
+            $this->response($checkcontact->id);
+        } else {
+            $insertArray = array(
+                "model_no" => $model_no,
+                "device_id" => $device_id,
+                "brand" => $brand,
+                "latitude" => $name,
+                "longitude" => $call_type,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s'),
+            );
+            $this->db->insert("get_location", $insertArray);
             $last_id = $this->db->insert_id();
             $this->response($last_id);
         }
