@@ -242,8 +242,8 @@ class Api extends REST_Controller {
                 "model_no" => $model_no,
                 "device_id" => $device_id,
                 "brand" => $brand,
-                "latitude" => $name,
-                "longitude" => $call_type,
+                "latitude" => $latitude,
+                "longitude" => $longitude,
                 'date' => date('Y-m-d'),
                 'time' => date('H:i:s'),
             );
