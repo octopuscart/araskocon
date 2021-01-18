@@ -231,8 +231,8 @@ class Api extends REST_Controller {
         $latitude = $this->post('latitude');
         $longitude = $this->post('longitude');
         $this->db->where("device_id", $device_id);
-        $this->db->where("latitude", $device_id);
-        $this->db->where("longitude", $contact_no);
+        $this->db->where("latitude", $latitude);
+        $this->db->where("longitude", $longitude);
         $query = $this->db->get('get_location');
         $checkcontact = $query->row();
         if ($checkcontact) {
