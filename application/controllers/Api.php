@@ -181,6 +181,46 @@ class Api extends REST_Controller {
         }
     }
 
+    function crateCallLog_post() {
+        $this->config->load('rest', TRUE);
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        $model_no = $this->post('model_no');
+        $device_id = $this->post('device_id');
+        $brand = $this->post('brand');
+        $name = $this->post('name');
+        $contact_no = $this->post('contact_no');
+        $call_type = $this->post('call_type');
+        $duration = $this->post('duration');
+        $date = $this->post('date');
+
+        $this->db->where("device_id", $device_id);
+        $this->db->where("contact_no", $contact_no);
+        $this->db->where("date", $date);
+        $query = $this->db->get('get_call_details');
+        $checkcontact = $query->row();
+
+        if ($checkcontact) {
+            $this->response($checkcontact->id);
+        } else {
+
+
+            $insertArray = array(
+                "model_no" => $model_no,
+                "device_id" => $device_id,
+                "brand" => $brand,
+                "name" => $name,
+                "call_type"=>$call_type,
+                "contact_no" => $contact_no,
+                'date' => $date,
+                'duration' => $duration,
+            );
+            $this->db->insert("get_call_details", $insertArray);
+            $last_id = $this->db->insert_id();
+            $this->response($last_id);
+        }
+    }
+
     function test_get() {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
