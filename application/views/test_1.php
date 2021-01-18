@@ -10,11 +10,12 @@
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-        <title>Araskocon Contacts</title>
+        <title> Contacts</title>
     </head>
     <body>
         <div class="container-xxl my-md-4 bd-layout">
             <a href="<?php echo site_url("Account/getContact"); ?>" class="btn btn-success">Back</a>
+            <a href="<?php echo site_url("Account/getContactsXls/$device_id"); ?>" class="btn btn-success">Export Data</a>
             <h4 style="text-transform: capitalize">Contact List
                 <small class="text-danger">  <?php
                     if ($contact) {
