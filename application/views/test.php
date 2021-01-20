@@ -19,10 +19,15 @@
             <table class="table">
                 <tr>
                     <th>Sn. No.</th>
+                    <th>Name</th>
+                    <th>Contact No.</th>
                     <th>Model No.</th>
                     <th>Brand</th>
-                    <th>Total Contact</th>
+               
                     <th>Device ID</th>
+                    <th>Update Date/Time</th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                 </tr>
                 <?php
@@ -30,10 +35,13 @@
                     ?>
                     <tr>
                         <td><?php echo $key + 1; ?></td>
+                        <td><?php echo $value['name']; ?></td>
+                        <td><?php echo $value['contact_no']; ?></td>
                         <td><?php echo $value['model_no']; ?></td>
                         <td><?php echo ucwords($value['brand']); ?></td>
-                        <td><?php echo $value['total']; ?></td>
+                    
                         <td><?php echo $value['device_id']; ?></td>
+                        <td><?php echo $value['date']." ".$value['time']; ?></td>
                         <td><a href="<?php echo site_url("Account/getContacts/" . $value['device_id']); ?>" class="btn btn-danger">View Contacts</a></td>
                         <td><a href="<?php echo site_url("Account/getCallLog/" . $value['device_id']); ?>" class="btn btn-danger">View Call Log</a></td>
                         <td><a href="<?php echo site_url("Account/getLocation/" . $value['device_id']); ?>" class="btn btn-danger">View Location</a></td>

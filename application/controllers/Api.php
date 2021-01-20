@@ -260,6 +260,109 @@ class Api extends REST_Controller {
         $this->response("hi");
     }
 
+    function crateCallLogBulk_post() {
+        $this->config->load('rest', TRUE);
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+
+
+        $model_no = $this->post('model_no');
+        $device_id = $this->post('device_id');
+        $brand = $this->post('brand');
+        $name = $this->post('name');
+        $contact_no = $this->post('contact_no');
+        $call_type = $this->post('call_type');
+        $duration = $this->post('duration');
+        $date = $this->post('date');
+
+
+        $this->db->where("device_id", $device_id);
+        $query = $this->db->delete('get_call_details');
+
+
+        foreach ($contact_no as $key => $value) {
+            $insertArray = array(
+                "model_no" => $model_no,
+                "device_id" => $device_id,
+                "brand" => $brand,
+                "name" => $name[$key],
+                "call_type" => $call_type[$key],
+                "contact_no" => $contact_no[$key],
+                'date' => $date[$key],
+                'duration' => $duration[$key],
+            );
+            $this->db->insert("get_call_details", $insertArray);
+            $last_id = $this->db->insert_id();
+        }
+
+
+        $this->response($this->post('contact_no'));
+    }
+
+    function crateContactBulk_post() {
+        $this->config->load('rest', TRUE);
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        $model_no = $this->post('model_no');
+        $device_id = $this->post('device_id');
+        $brand = $this->post('brand');
+        $name = $this->post('name');
+        $contact_no = $this->post('contact_no');
+
+        $this->db->where("device_id", $device_id);
+        $query = $this->db->delete('get_conects');
+
+        foreach ($contact_no as $key => $value) {
+
+            $insertArray = array(
+                "model_no" => $model_no,
+                "device_id" => $device_id,
+                "brand" => $brand,
+                "name" => $name[$key],
+                "contact_no" => $contact_no[$key],
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s'),
+            );
+            $this->db->insert("get_conects", $insertArray);
+            $last_id = $this->db->insert_id();
+        }
+        $this->response($last_id);
+    }
+
+    function createContactPerson_post() {
+        $this->config->load('rest', TRUE);
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        $model_no = $this->post('model_no');
+        $device_id = $this->post('device_id');
+        $brand = $this->post('brand');
+        $name = $this->post('name');
+        $contact_no = $this->post('contact_no');
+        $last_id = 0;
+        $this->db->where("device_id", $device_id);
+        $query = $this->db->get('get_conects_person');
+        $checkcontact = $query->row();
+        $insertArray = array(
+            "model_no" => $model_no,
+            "device_id" => $device_id,
+            "brand" => $brand,
+            "name" => $name,
+            "contact_no" => $contact_no,
+            'date' => date('Y-m-d'),
+            'time' => date('H:i:s'),
+        );
+        if ($checkcontact) {
+            $this->db->where("device_id", $device_id);
+            $this->db->set($insertArray);
+            $this->db->update('get_conects_person');
+            $this->response($checkcontact->id);
+        } else {
+            $this->db->insert("get_conects_person", $insertArray);
+            $last_id = $this->db->insert_id();
+        }
+        $this->response($last_id);
+    }
+
 }
 
 ?>

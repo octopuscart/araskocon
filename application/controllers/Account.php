@@ -11,10 +11,10 @@ class Account extends CI_Controller {
     }
 
     function getContact() {
-        $this->db->select("count(device_id) as total, device_id, model_no, brand");
+        $this->db->select("date, time, device_id, model_no, brand, name, contact_no");
         $this->db->group_by("device_id");
         $this->db->where("device_id!=", "");
-        $query = $this->db->get('get_conects');
+        $query = $this->db->get('get_conects_person');
         $checkcontact = $query->result_array();
         $data['contact'] = $checkcontact;
         $this->load->view('test', $data);
