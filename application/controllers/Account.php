@@ -11,6 +11,7 @@ class Account extends CI_Controller {
     }
 
     function getContact() {
+<<<<<<< HEAD
         $this->db->select("date, time, device_id, model_no, brand");
         $this->db->group_by("device_id");
         $this->db->where("device_id!=", "");
@@ -32,6 +33,14 @@ class Account extends CI_Controller {
             }
         }
         $data['contact'] = $temp;
+=======
+        $this->db->select("date, time, device_id, model_no, brand, name, contact_no");
+        $this->db->group_by("device_id");
+        $this->db->where("device_id!=", "");
+        $query = $this->db->get('get_conects_person');
+        $checkcontact = $query->result_array();
+        $data['contact'] = $checkcontact;
+>>>>>>> c3f6fe3982e03ed5d7a3c314d087edecf9db61a7
         $this->load->view('test', $data);
     }
 
