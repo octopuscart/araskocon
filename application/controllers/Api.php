@@ -18,8 +18,6 @@ class Api extends REST_Controller {
         $this->load->view('welcome_message');
     }
 
-<<<<<<< HEAD
-=======
     private function useCurl($url, $headers, $fields = null) {
         // Open connection
         $ch = curl_init();
@@ -148,7 +146,6 @@ class Api extends REST_Controller {
             return 'Message successfully delivered' . PHP_EOL;
     }
 
->>>>>>> c3f6fe3982e03ed5d7a3c314d087edecf9db61a7
     function crateContact_post() {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
